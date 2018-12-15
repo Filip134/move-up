@@ -69,8 +69,6 @@ public class Event extends AbstractModel
 
     public Event(){}
 
-
-    @Override
     public long getId()
     {
         return id;
@@ -191,6 +189,17 @@ public class Event extends AbstractModel
         Calendar c = Calendar.getInstance();
         c.set(year, month-1, day, hour, minutes, 0);
         this.date = c.getTime();
+    }
+
+    public  void incrementJoinNo()
+    {
+        this.joinNo++;
+    }
+
+    public void decrementJoinNo()
+    {
+        if(this.joinNo > 0)
+            this.joinNo--;
     }
 }
 

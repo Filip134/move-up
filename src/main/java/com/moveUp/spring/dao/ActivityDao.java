@@ -16,8 +16,16 @@ public class ActivityDao extends AbstractDao
         return true;
     }
 
-    public void deleteById(long id)
+    public boolean deleteById(long id)
     {
+        Activity activity = (Activity) getSession().load(Activity.class, id);
+
+        if(activity == null)
+            return false;
+
+        getSession().delete(activity);
+
+        return true;
     }
 
     public List<Activity> getActivities()
@@ -44,18 +52,6 @@ public class ActivityDao extends AbstractDao
     public Activity getActivityById(long id)
     {
         return (Activity) getSession().get(Activity.class, id);
-    }
-
-
-
-    public void update(Activity activity)
-    {
-        getSession().update(activity);
-    }
-
-    public void saveOrUpdate(Activity activity)
-    {
-        getSession().saveOrUpdate(activity);
     }
 
 }

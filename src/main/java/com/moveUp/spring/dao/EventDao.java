@@ -20,33 +20,54 @@ public class EventDao extends AbstractDao
     @Autowired
     UserDao userDao;
 
-    public void addEvent(Event event)
+    public boolean addEvent(Event event)
     {
         getSession().saveOrUpdate(event.getCreator());
         getSession().saveOrUpdate(event.getActivity());
         getSession().saveOrUpdate(event);
+
+        return  true;
     }
 
-    public void addUserToEvent(User user, Event event)
+    public boolean addUserToEvent(User user, Event event)
     {
         if(event.getJoinNo()+1 > event.getMaxJoin())
-            return;
+            return false;
         if(event.getUsers().contains(user))
-            return;
+            return false;
 
-        int n = event.getJoinNo() + 1;
-        event.setJoinNo(n);
+        event.incrementJoinNo();
         event.getUsers().add(user);
         user.getEvents().add(event);
 
         getSession().saveOrUpdate(user);
         getSession().saveOrUpdate(event);
+
+        return true;
     }
 
-    public void deleteById(long id)
+    public boolean removeUserFromEvent(User user, Event event)
+    {
+        if(!event.getUsers().contains(user))
+            return false;
+
+        event.getUsers().remove(user);
+        user.getEvents().remove(event);
+
+        event.decrementJoinNo();
+
+        getSession().saveOrUpdate(user);
+        getSession().saveOrUpdate(event);
+
+        return true;
+    }
+
+    public boolean deleteById(long id)
     {
         Event event = (Event) getSession().load(Event.class, id);
         getSession().delete(event);
+
+        return true;
     }
 
     public List<Event> getEvents() {

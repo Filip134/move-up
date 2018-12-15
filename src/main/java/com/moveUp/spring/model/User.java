@@ -13,8 +13,6 @@ import java.util.List;
 public class User extends AbstractModel
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String login;
     private String password;
     //średnia na podstawie ocen organizowanych eventów
@@ -36,11 +34,6 @@ public class User extends AbstractModel
     }
 
     public User (){};
-
-    public long getId()
-    {
-        return id;
-    }
 
     public String getLogin()
     {

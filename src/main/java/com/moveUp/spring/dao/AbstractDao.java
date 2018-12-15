@@ -20,13 +20,5 @@ public abstract class AbstractDao
         return session;
     }
 
-    public boolean exists(AbstractModel model)
-    {
-        if(getSession().get(model.getClass(), model.getId()) == null)
-            return false;
-        else
-            return true;
-    }
-
-    public abstract void deleteById(long id);
+    public abstract boolean deleteById(long id);
 }

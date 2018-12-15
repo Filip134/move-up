@@ -23,7 +23,6 @@ public class Activity extends AbstractModel
 
     public Activity(){}
 
-    @Override
     public long getId()
     {
         return id;

@@ -12,7 +12,7 @@ import java.util.List;
 @Transactional
 public class OpinionDao extends AbstractDao
 {
-    public void addOpinion(Opinion opinion)
+    public boolean addOpinion(Opinion opinion)
     {
         opinion.getEvent().getOpinions().add(opinion);
         getSession().saveOrUpdate(opinion.getEvent());
@@ -21,7 +21,7 @@ public class OpinionDao extends AbstractDao
 
         double average = 0;
 
-        Query q = getSession().createQuery("from Event as e inner join e.opinions as o where creator_id = " + opinion.getEvent().getCreator().getId());
+        Query q = getSession().createQuery("from Event as e inner join e.opinions as o where creator_login = " + opinion.getEvent().getCreator().getLogin());
         List<?> list = q.list();
 
         for(int i=0; i<list.size(); i++)
@@ -37,13 +37,20 @@ public class OpinionDao extends AbstractDao
 
         opinion.getEvent().getCreator().setAverage(average);
         getSession().update(opinion.getEvent().getCreator());
+
+        return true;
     }
 
-
-    public void deleteById(long id)
+    public boolean deleteById(long id)
     {
         Opinion opinion = (Opinion)getSession().load(Opinion.class, id);
+
+        if(opinion == null)
+            return false;
+
         getSession().delete(opinion);
+
+        return true;
     }
 
     public List<Opinion> getOpinions()

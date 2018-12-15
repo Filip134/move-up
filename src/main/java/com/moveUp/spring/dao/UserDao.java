@@ -15,6 +15,9 @@ public class UserDao extends AbstractDao
 {
     public boolean addUser(User user)
     {
+        if(user.getLogin() == null || user.getPassword() == null)
+            return  false;
+
         if(!isLoginFree(user.getLogin()))
             return false;
 
@@ -22,10 +25,15 @@ public class UserDao extends AbstractDao
         return true;
     }
 
-    public void deleteById(long id)
+    public boolean deleteById(long id)
     {
         User user = (User)getSession().load(User.class, id);
+
+        if(user == null)
+            return false;
+
         getSession().delete(user);
+        return true;
     }
 
     public List<User> getUsers()
