@@ -1,0 +1,162 @@
+@media(min-width: 768px)
+{
+    .topmenu
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+@media(max-width: 768px)
+{
+    .box
+    {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+
+
+body
+{
+    background-color: white;
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 17px;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+.logo
+{
+    display: inline-block;
+    border-bottom: none;
+}
+
+.logo h1
+{
+    color: black;
+    padding-left: 15px;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+}
+
+.logo h1
+{
+    font-size: 55px;
+    font-weight: 700;
+    letter-spacing: 5px;
+}
+
+.box h3
+{
+    font-size: 25px;
+}
+
+.navi
+{
+    padding: 10px;
+    background-color: white;
+    text-align: center;
+    margin-top: 25px;
+    border-bottom: 1px solid black;
+    margin-bottom: 65px;
+}
+
+ul
+{
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+    font-size: 23px;
+    height: 35px;
+    line-height: 200%;
+    display: inline-block;
+    height: 47px;
+}
+
+ul a
+{
+    color: black;
+    text-decoration: none;
+}
+
+ul > li
+{
+    width: 170px;
+    height: 50px;
+}
+
+ul > li:hover
+{
+    background-color: white;
+}
+
+ul > li > ul
+{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    height: 40px;
+    display: none;
+}
+
+ul > li:hover > ul
+{
+    display: flex;
+    flex-direction: column;
+}
+
+ul > li > ul > li
+{
+    background-color: #5b2357;
+    z-index: 100;
+}
+
+ul > li > ul > li:hover
+{
+    background-color: #a5e2f7;
+}
+
+
+ul > li > ul > li:hover > a
+{
+    color: green;
+}
+
+.box
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.aboutapp
+{
+    width: 70%;
+    min-height: 360px;
+    padding-left: 15px;
+    padding-right: 10px;
+    text-align: left;
+}
+
+.logoPic
+{
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+footer
+{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 40px;
+}

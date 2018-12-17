@@ -7,8 +7,7 @@ import com.moveUp.spring.dao.UserDao;
 import com.moveUp.spring.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -27,29 +26,15 @@ public class MainController
     Activity activity;
     Event event;
 
-
     @GetMapping("/")
     public String index()
     {
-        user = new User("login 1", "password 1");
-        activity = new Activity(false, "Activity");
-        event = new Event("Something", "Something something", "Somewhere", 8,
-                Advancement.INTERMEDIATE, 2018, 8, 15, 16, 30, user, activity);
-
-        userDao.addUser(user);
-        activityDao.addActivity(activity);
-        eventDao.addEvent(event);
-
-        eventDao.addUserToEvent(user, event);
-
         return "index";
     }
 
-    @GetMapping("/delete")
-    public String removeUser()
+    @GetMapping("/login")
+    public String login()
     {
-        eventDao.removeUserFromEvent(user, event);
-
-        return "index";
+        return "login";
     }
 }

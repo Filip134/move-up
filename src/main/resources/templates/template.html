@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+
+    <title>Move Up!</title>
+
+    <meta charset="utf-8"/>
+    <meta name="description" content="Portal zrzeszający sportowców"/>
+    <meta name="keywords" content="sport, aktywność"/>
+    <meta http-equiv="X-Ua-Compatible" content="IE=edge"/>
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0"/>
+
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+
+</head>
+
+<header th:fragment="header">
+
+    <div class="logo">
+        <a th:href="@{/}">
+            <h1>Move Up!</h1></a>
+    </div>
+
+    <nav class="navi">
+        <ul class="topmenu">
+            <li><a th:href="@{/}">Strona główna</a></li>
+            <li><a th:href="@{/search}">Szukaj</a></li>
+            <li><a th:href="@{/login}">Zaloguj się</a></li>
+            <li><a th:href="@{/help}">Pomoc</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+
+<footer th:fragment="footer">
+    Move up! &copy; 2018
+</footer>
+
+</html>

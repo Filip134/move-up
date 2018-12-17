@@ -65,6 +65,11 @@ public class User extends AbstractModel
         this.created = created;
     }
 
+    public void setPassword(String password)
+    {
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());;
+    }
+
     public List<Event> getEvents()
     {
         return events;
