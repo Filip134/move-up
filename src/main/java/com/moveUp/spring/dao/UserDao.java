@@ -1,6 +1,7 @@
 package com.moveUp.spring.dao;
 
 
+import com.moveUp.spring.dto.UserDto;
 import com.moveUp.spring.model.User;
 import org.hibernate.Query;
 import org.mindrot.jbcrypt.BCrypt;
@@ -23,6 +24,12 @@ public class UserDao extends AbstractDao
 
         getSession().saveOrUpdate(user);
         return true;
+    }
+
+    public void addUser(UserDto userDto)
+    {
+        User user = new User(userDto.getLogin(), userDto.getPassword());
+        getSession().saveOrUpdate(user);
     }
 
     public boolean deleteById(long id)

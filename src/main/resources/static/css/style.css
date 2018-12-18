@@ -94,7 +94,7 @@ ul > li
 
 ul > li:hover
 {
-    background-color: white;
+    background-color: darkgrey;
 }
 
 ul > li > ul
@@ -114,19 +114,20 @@ ul > li:hover > ul
 
 ul > li > ul > li
 {
-    background-color: #5b2357;
+    background-color: white;
+    min-height: 50px;
     z-index: 100;
 }
 
 ul > li > ul > li:hover
 {
-    background-color: #a5e2f7;
+    background-color: darkgrey;
 }
 
 
 ul > li > ul > li:hover > a
 {
-    color: green;
+    color: black;
 }
 
 .box
