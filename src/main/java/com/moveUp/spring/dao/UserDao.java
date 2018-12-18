@@ -80,11 +80,10 @@ public class UserDao extends AbstractDao
         }
     }
 
-    public User getUsersByLogin(String login)
+    public User getUserByLogin(String login)
     {
-        Query q = getSession().createQuery("from User where login:=login");
-        q.setParameter("login", login);
-        return (User)q.uniqueResult();
+        User user = getSession().get(User.class, login);
+        return user;
     }
 
 

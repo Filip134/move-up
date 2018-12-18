@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl-PL">
+
+<head th:replace="template :: head"></head>
+
+<body>
+
+    <header th:replace="template :: header"></header>
+
+    <form th:object="${eventDto}" method="post" enctype="utf8">
+        <div>
+            <label>Nazwa</label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Miejsce</label>
+            <input type="text" th:field="*{place}"/>
+        </div>
+        <div>
+            <label>Maksymalna liczba uczestników</label>
+            <input type="number" min="2" th:field="*{maxJoin}"/>
+        </div>
+        <div>
+            <label>Opis</label>
+            <textarea th:field="*{description}"></textarea>
+        </div>
+        <div>
+            <label>Data</label>
+            <input type="date" th:field="*{date}"/>
+        </div>
+        <div>
+            <label>Czas</label>
+            <input type="time" th:field="*{time}"/>
+        </div>
+        <div>
+            <label>Kategoria</label>
+            <select th:field="*{activityId}">
+                <option
+                        th:each="act: ${activities}"
+                        th:value="${act.getId()}"
+                        th:text="${act.getName()}" ></option>
+            </select>
+        </div>
+        <div>
+            <select th:field="*{advancement}">
+                <option th:value="begginer" th:text="Początkujący"></option>
+                <option th:value="intermediate" th:text="Sredni"></option>
+                <option th:value="adavanced" th:text="Zaawansowany"></option>
+            </select>
+        </div>
+        <input type="submit">Dodaj wydarzenie</input>
+
+    </form>
+
+    <footer th:replace="template :: footer"></footer>
+
+</body>
+
+</html>

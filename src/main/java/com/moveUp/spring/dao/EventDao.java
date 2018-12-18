@@ -1,6 +1,8 @@
 package com.moveUp.spring.dao;
 
 
+import com.moveUp.spring.dao.AbstractDao;
+import com.moveUp.spring.dao.UserDao;
 import com.moveUp.spring.model.*;
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,7 @@ public class EventDao extends AbstractDao
 
     public boolean addEvent(Event event)
     {
-        getSession().saveOrUpdate(event.getCreator());
-        getSession().saveOrUpdate(event.getActivity());
         getSession().saveOrUpdate(event);
-
         return  true;
     }
 

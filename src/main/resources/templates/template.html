@@ -26,38 +26,22 @@
         <ul class="topmenu">
             <li><a th:href="@{/}">Strona główna</a></li>
             <li><a th:href="@{/search}">Szukaj</a></li>
-            <li><a th:href="@{/login}">Zaloguj się</a></li>
+            <li th:if="${session.login == null}">
+                <a th:href="@{/login}">Zaloguj się</a>
+            </li>
+            <li th:if="${session.login != null}">
+                Konto
+                <ul>
+                    <li><a th:href="@{/addevent}">Utwórz</a></li>
+                    <li><a th:href="@{/account}">Moje konto</a></li>
+                    <li><a th:href="@{/logout}">Wyloguj się</a></li>
+                </ul>
+            </li>
             <li><a th:href="@{/help}">Pomoc</a></li>
         </ul>
     </nav>
 
 </header>
-
-
-<span th:fragment="headerLogged">
-
-    <div class="logo">
-        <a th:href="@{/}">
-            <h1>Move Up!</h1></a>
-    </div>
-
-    <nav class="navi">
-        <ul class="topmenu">
-            <li><a th:href="@{/}">Strona główna</a></li>
-            <li><a th:href="@{/search}">Szukaj</a></li>
-            <li>Konto
-                <ul>
-                    <li><a th:href="@{/createevent}">Utwórz</a></li>
-                    <li><a th:href="@{/account}">Moje konto</a></li>
-                    <li><a th:href="@{/logout}">Wyloguj się</a></li>
-                </ul>
-            </li>
-
-            <li><a th:href="@{/help}">Pomoc</a></li>
-        </ul>
-    </nav>
-
-</span>
 
 
 <footer th:fragment="footer">

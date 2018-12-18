@@ -1,10 +1,9 @@
 package com.moveUp.spring.controller;
 
-import com.moveUp.spring.dao.ActivityDao;
-import com.moveUp.spring.dao.EventDao;
-import com.moveUp.spring.dao.OpinionDao;
-import com.moveUp.spring.dao.UserDao;
+import com.moveUp.spring.dto.EventDto;
 import com.moveUp.spring.dto.UserDto;
+import com.moveUp.spring.service.ActivityService;
+import com.moveUp.spring.service.EventService;
 import com.moveUp.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,10 @@ public class MainController
 {
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private EventService eventService;
+    @Autowired
+    private ActivityService activityService;
 
     @GetMapping("/")
     public String index(HttpSession session)
@@ -58,8 +60,39 @@ public class MainController
     @GetMapping("/logout")
     public String logOut(HttpSession session)
     {
-        session.removeAttribute("login");
+        if(session.getAttribute("login") != null)
+            session.removeAttribute("login");
+
         return "index";
+    }
+
+    @GetMapping("/addevent")
+    public String addEventGet(HttpSession session, Model model)
+    {
+        model.addAttribute("activities", activityService.getActivities());
+
+        if(session.getAttribute("login") == null)
+            return "index";
+        else
+        {
+            EventDto eventDto = new EventDto();
+            model.addAttribute("eventDto", eventDto);
+            return "addevent";
+        }
+    }
+
+    @PostMapping("/addevent")
+    public String addEventPost(@ModelAttribute("eventDto") EventDto eventDto, HttpSession session)
+    {
+        if(session.getAttribute("login") == null)
+            return "index";
+        else
+        {
+            String login = (String) session.getAttribute("login");
+            eventDto.setCreatorLogin(login);
+            eventService.addEvent(eventDto);
+            return "index";
+        }
     }
 
     @PostMapping("/registration")

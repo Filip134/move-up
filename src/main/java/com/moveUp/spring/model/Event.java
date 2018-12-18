@@ -4,7 +4,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -36,8 +37,10 @@ public class Event extends AbstractModel
     @Fetch(value = FetchMode.SUBSELECT)
     //opinie do eventu
     private List<Opinion> opinions = new ArrayList<Opinion>();
+    @Transient
+    java.util.Date time;
 
-    public Event(String name, String description, String place, int maxJoin, Advancement advancement, User creator, Date date, Activity activity)
+    public Event(String name, String description, String place, int maxJoin, Advancement advancement, User creator, java.util.Date date, Activity activity)
     {
         this.name = name;
         this.description = description;
@@ -46,23 +49,6 @@ public class Event extends AbstractModel
         this.advancement = advancement;
         this.maxJoin = maxJoin;
         this.creator = creator;
-        this.date = date;
-        this.activity = activity;
-    }
-
-    //ustawianie daty na podstawie 5 zmiennych int
-    public Event(String name, String description, String place, int maxJoin, Advancement advancement, int year, int month, int day, int hour, int minutes, User creator, Activity activity)
-    {
-        this.name = name;
-        this.description = description;
-        this.place = place;
-        this.joinNo = 0;
-        this.maxJoin = maxJoin;
-        this.advancement = advancement;
-        this.creator = creator;
-        Calendar c = Calendar.getInstance();
-        c.set(year, month-1, day, hour, minutes, 0);
-        this.date = c.getTime();
         this.date = date;
         this.activity = activity;
     }
@@ -139,11 +125,6 @@ public class Event extends AbstractModel
         return date;
     }
 
-    public void setDate(java.util.Date date)
-    {
-        this.date = date;
-    }
-
     public Activity getActivity()
     {
         return activity;
@@ -184,11 +165,42 @@ public class Event extends AbstractModel
         this.maxJoin = maxJoin;
     }
 
-    public void  setDate(int year, int month, int day, int hour, int minutes)
+    public void setDate(String date)
     {
-        Calendar c = Calendar.getInstance();
-        c.set(year, month-1, day, hour, minutes, 0);
-        this.date = c.getTime();
+        if(date == null)
+            return;
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try { this.date = format.parse(date); } catch (ParseException e)
+        { e.printStackTrace(); }
+    }
+
+    public void setTime(String time)
+    {
+        if(time == null)
+            return;
+
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+        try { this.time = format.parse(time); }
+        catch (ParseException e) { e.printStackTrace(); }
+
+        if(this.date != null)
+        {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(this.date);
+            format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+            int month = cal.get(Calendar.MONTH)+1;
+            String dateString = "" + cal.get(Calendar.YEAR) + "-" + month + "-" + cal.get(Calendar.DAY_OF_MONTH);
+            cal.setTime(this.time);
+            dateString += " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
+            try { this.date = format.parse(dateString); }
+            catch (ParseException e) { e.printStackTrace(); }
+        }
+    }
+
+    public java.util.Date getTime()
+    {
+        return this.time;
     }
 
     public  void incrementJoinNo()

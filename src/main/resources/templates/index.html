@@ -5,12 +5,7 @@
 
 <body>
 
-<span th:if="${session.login == null}">
     <head th:replace="template :: header"></head>
-</span>
-<span th:if="${session.login != null}">
-    <head th:replace="template :: headerLogged"></head>
-</span>
 
 <main>
     <article class="box">
