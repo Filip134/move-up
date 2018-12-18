@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -30,6 +31,12 @@ public class MainController
         return "index";
     }
 
+    @GetMapping("/index")
+    public String indexPath(HttpSession session)
+    {
+        return "index";
+    }
+
     @GetMapping("/login")
     public String loginGet()
     {
@@ -42,7 +49,7 @@ public class MainController
         if(userService.logIn(request.getParameter("login"), request.getParameter("password")))
         {
             session.setAttribute("login", request.getParameter("login"));
-            return "index";
+            return "redirect:/";
         }
 
         else
@@ -63,7 +70,7 @@ public class MainController
         if(session.getAttribute("login") != null)
             session.removeAttribute("login");
 
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/addevent")
@@ -72,7 +79,7 @@ public class MainController
         model.addAttribute("activities", activityService.getActivities());
 
         if(session.getAttribute("login") == null)
-            return "index";
+            return "redirect:/";
         else
         {
             EventDto eventDto = new EventDto();
@@ -85,13 +92,13 @@ public class MainController
     public String addEventPost(@ModelAttribute("eventDto") EventDto eventDto, HttpSession session)
     {
         if(session.getAttribute("login") == null)
-            return "index";
+            return "redirect:/";
         else
         {
             String login = (String) session.getAttribute("login");
             eventDto.setCreatorLogin(login);
             eventService.addEvent(eventDto);
-            return "index";
+            return "redirect:/";
         }
     }
 
@@ -100,11 +107,31 @@ public class MainController
     {
         if(userService.registerNewUser(userDto))
         {
-            return "success";
+            return "redirect:/";
         }
         else
         {
             return "failure";
         }
+    }
+
+    @GetMapping("/created")
+    public String createdGet(HttpSession session, Model model)
+    {
+        model.addAttribute("createdEvents", eventService.getCreatedEvents((String) session.getAttribute("login")));
+
+        return "created";
+    }
+
+    @PostMapping("deleteevent")
+    public String deleteEventById(HttpServletRequest request, HttpSession session)
+    {
+        if(session.getAttribute("login") == null)
+            return "redirect:/";
+
+        long id = Long.parseLong(request.getParameter("deleteEvent"));
+
+        eventService.deleteEventById(id);
+        return "redirect:/";
     }
 }

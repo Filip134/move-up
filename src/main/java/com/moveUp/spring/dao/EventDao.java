@@ -134,10 +134,10 @@ public class EventDao extends AbstractDao
         return q.list();
     }
 
-    public List<Event> getEventsByCreatorId(long id)
+    public List<Event> getEventsByCreatorLogin(String login)
     {
-        Query q = getSession().createQuery("from Event where creator_id=:creatorId");
-        q.setParameter("creatorId", id);
+        Query q = getSession().createQuery("from Event where creator_login=:creatorLogin");
+        q.setParameter("creatorLogin", login);
 
         return q.list();
     }

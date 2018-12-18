@@ -9,6 +9,8 @@ import com.moveUp.spring.model.Advancement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class EventService
@@ -44,5 +46,15 @@ public class EventService
             return true;
         else
             return false;
+    }
+
+    public List<Event> getCreatedEvents(String login)
+    {
+        return eventDao.getEventsByCreatorLogin(login);
+    }
+
+    public void deleteEventById(long id)
+    {
+        eventDao.deleteById(id);
     }
 }

@@ -7,22 +7,13 @@
 
     <header th:replace="template :: header"></header>
 
-    <form th:object="${userDto}" method="post" enctype="utf8">
-        <div>
-            <label>Login</label>
-            <input th:field="*{login}"/>
-        </div>
-        <div>
-            <label>Hasło</label>
-            <input type="password" th:field="*{password}"/>
-        </div>
-        <div>
-            <label>Powtwierdź hasło</label>
-            <input type="password" th:field="*{confirmPassword}"/>
-        </div>
-
-        <button type="submit">Zarejestruj</button>
-
+    <form class="login" th:object="${userDto}" method="post" enctype="utf8">
+        <h1 class="login-title">Rejestracja</h1>
+        <input th:field="*{login}" type="text" class="login-input" placeholder="login" autofocus=""/>
+        <input th:field="*{password}" type="password" class="login-input" placeholder="hasło"/>
+        <input th:field="*{confirmPassword}" type="password" class="login-input" placeholder="potwierdź hasło"/>
+        <input type="submit" value="Zarejestruj" class="login-button"/>
+        <p class="login-register"><a th:href="@{/login}">Masz konto?<br/>Zaloguj się</a></p>
     </form>
 
     <footer th:replace="template :: footer"></footer>

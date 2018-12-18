@@ -32,8 +32,10 @@
             <li th:if="${session.login != null}">
                 Konto
                 <ul>
-                    <li><a th:href="@{/addevent}">Utwórz</a></li>
-                    <li><a th:href="@{/account}">Moje konto</a></li>
+                    <li><a th:href="@{/addevent}">Utwórz wydarzenie</a></li>
+                    <li><a th:href="@{/participate}">Moje wydarzenia</a></li>
+                    <li><a th:href="@{/created}">Stworzone wydarzenia</a></li>
+                    <li><a th:href="@{/changePass}">Zmień hasło</a></li>
                     <li><a th:href="@{/logout}">Wyloguj się</a></li>
                 </ul>
             </li>

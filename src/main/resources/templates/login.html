@@ -7,21 +7,13 @@
 
     <header th:replace="template :: header"></header>
 
-    <form method="post" enctype="utf8">
-        <div>
-            <label>Login</label>
-            <input type="text" name="login"/>
-        </div>
-        <div>
-            <label>Hasło</label>
-            <input type="password" name="password"/>
-        </div>
-
-        <button type="submit">Zaloguj</button>
-
+    <form class="login" action="/login" method="post">
+        <h1 class="login-title">Logowanie</h1>
+        <input type="text" class="login-input" name="login" placeholder="login" autofocus=""/>
+        <input type="password" class="login-input" name="password" placeholder="hasło"/>
+        <input type="submit" value="Zaloguj" class="login-button"/>
+        <p class="login-register"><a th:href="@{/registration}">Nie masz konta?<br/>Zarejestruj się</a></p>
     </form>
-
-    <a th:href="@{/registration}">Zarejestruj się</a>
 
     <footer th:replace="template :: footer"></footer>
 
