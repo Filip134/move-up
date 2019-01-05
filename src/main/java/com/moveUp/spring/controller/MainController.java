@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @Controller
@@ -123,6 +123,27 @@ public class MainController
         return "created";
     }
 
+    @GetMapping("/search")
+    public String searchGet(HttpSession session, Model model)
+    {
+        if(session.getAttribute("login") == null)
+            model.addAttribute("allEvents", eventService.getAllEvents());
+        else
+            model.addAttribute("allEvents", eventService.getJoinableEvents((String) session.getAttribute("login")));
+
+        return "events";
+    }
+
+    @PostMapping("/join")
+    public String join(HttpSession session, HttpServletRequest request)
+    {
+        String login = (String) session.getAttribute("login");
+        long eventId = Long.parseLong(request.getParameter("eventId"));
+        eventService.addUserToEvent(login, eventId);
+
+        return "redirect:/search";
+    }
+
     @PostMapping("deleteevent")
     public String deleteEventById(HttpServletRequest request, HttpSession session)
     {
@@ -132,6 +153,6 @@ public class MainController
         long id = Long.parseLong(request.getParameter("deleteEvent"));
 
         eventService.deleteEventById(id);
-        return "redirect:/";
+        return "redirect:/created";
     }
 }

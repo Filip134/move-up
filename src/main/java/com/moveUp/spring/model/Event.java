@@ -38,7 +38,9 @@ public class Event extends AbstractModel
     //opinie do eventu
     private List<Opinion> opinions = new ArrayList<Opinion>();
     @Transient
-    java.util.Date time;
+    private java.util.Date time;
+    @OneToMany(mappedBy = "event")
+    private List<Coordinate> coordinates = new ArrayList<>();
 
     public Event(String name, String description, String place, int maxJoin, Advancement advancement, User creator, java.util.Date date, Activity activity)
     {

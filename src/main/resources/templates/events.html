@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl-PL">
+
+<head th:replace="template :: head"></head>
+
+<body>
+
+<head th:replace="template :: header"></head>
+
+<main>
+
+    <div th:each="event: ${allEvents}" class="createdEvent">
+        <h3 class="eventName" th:text="${event.getName()}"></h3>
+        <div class="eventInfo">
+            <p class="eventPoint"><label>Miejsce: </label><span th:text="${event.getPlace()}"></span></p>
+            <p class="eventPoint"><label>Data: </label><span th:text="${event.getDate()}"></span></p>
+            <p class="eventPoint"><label>Kategoria: </label><span th:text="${event.getActivity().getName()}"></span></p>
+            <p class="eventPoint"><label>Liczba zapisanych: </label><span th:text="${event.getJoinNo()}"></span></p>
+        </div>
+        <div class="eventDescription" th:text="${event.getDescription()}"></div>
+        <div class="clear"></div>
+        <form th:if="${session.login != null}" action="/join" method="post">
+            <button th:if="${event.getMaxJoin() &gt; event.getJoinNo()}" type="submit" name="eventId" th:value="${event.getId()}">Dołącz</button><br/>
+        </form>
+    </div>
+
+
+</main>
+
+<footer th:replace="template :: footer"></footer>
+
+</body>
+</html>

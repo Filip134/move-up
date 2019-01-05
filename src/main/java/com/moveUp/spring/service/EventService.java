@@ -6,6 +6,8 @@ import com.moveUp.spring.dao.UserDao;
 import com.moveUp.spring.dto.EventDto;
 import com.moveUp.spring.model.Event;
 import com.moveUp.spring.model.Advancement;
+import com.moveUp.spring.model.User;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +37,7 @@ public class EventService
         event.setName(eventDto.getName());
 
         if(eventDto.getAdvancement().equals("begginer"))
-            event.setAdvancement(Advancement.BEGGINER);
+            event.setAdvancement(Advancement.BEGINNER);
         else if(eventDto.getAdvancement().equals("intermediate"))
             event.setAdvancement(Advancement.INTERMEDIATE);
         else if(eventDto.getAdvancement().equals("advanced"))
@@ -51,6 +53,22 @@ public class EventService
     public List<Event> getCreatedEvents(String login)
     {
         return eventDao.getEventsByCreatorLogin(login);
+    }
+
+    public List<Event> getAllEvents()
+    {
+        return eventDao.getEvents();
+    }
+
+    public void addUserToEvent(String login, long eventId)
+    {
+        eventDao.addUserToEvent(userDao.getUserByLogin(login), eventDao.getEventById(eventId));
+    }
+
+    public List<Event> getJoinableEvents(String login)
+    {
+        User user = userDao.getUserByLogin(login);
+        return eventDao.getJoinableEvents(user);
     }
 
     public void deleteEventById(long id)

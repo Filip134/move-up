@@ -1,8 +1,5 @@
 package com.moveUp.spring.dao;
 
-
-import com.moveUp.spring.dao.AbstractDao;
-import com.moveUp.spring.dao.UserDao;
 import com.moveUp.spring.model.*;
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,8 +66,11 @@ public class EventDao extends AbstractDao
         return true;
     }
 
-    public List<Event> getEvents() {
-        return getSession().createCriteria(Event.class).list();
+    public List<Event> getEvents()
+    {
+        Query q = getSession().createQuery("from Event");
+        return q.list();
+//        return getSession().createCriteria(Event.class).list();
     }
 
     public Event getEventById(long id)
@@ -175,6 +175,22 @@ public class EventDao extends AbstractDao
     {
         Query q = getSession().createQuery("from Event where activity=:activity");
         q.setParameter("activity", activity);
+        return q.list();
+    }
+
+    public List<Event> getJoinableEvents(User user)
+    {
+        List<Event> events = user.getEvents();
+        Query q;
+
+        if(events.isEmpty())
+            q = getSession().createQuery("from Event");
+        else
+        {
+            q = getSession().createQuery("from Event as e where e not in (:events)");
+            q.setParameterList("events", events);
+        }
+
         return q.list();
     }
 

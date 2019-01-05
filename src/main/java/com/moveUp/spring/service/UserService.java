@@ -23,14 +23,14 @@ public class UserService
         if(!(userDto.getPassword().equals(userDto.getConfirmPassword())))
             return false;
 
-        userDao.addUser(userDto);
+        userDao.registerNewUser(userDto);
 
         return true;
     }
 
     public boolean logIn(String login, String password)
     {
-        if(userDao.credentials(login, password))
+        if(userDao.logIn(login, password))
             return true;
         else
             return false;

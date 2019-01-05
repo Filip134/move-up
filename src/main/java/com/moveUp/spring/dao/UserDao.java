@@ -14,7 +14,7 @@ import java.util.List;
 @Transactional
 public class UserDao extends AbstractDao
 {
-    public boolean addUser(User user)
+    public boolean registerNewUser(User user)
     {
         if(user.getLogin() == null || user.getPassword() == null)
             return  false;
@@ -26,10 +26,10 @@ public class UserDao extends AbstractDao
         return true;
     }
 
-    public void addUser(UserDto userDto)
+    public void registerNewUser(UserDto userDto)
     {
         User user = new User(userDto.getLogin(), userDto.getPassword());
-        getSession().saveOrUpdate(user);
+        getSession().save(user);
     }
 
     public boolean deleteById(long id)
@@ -55,7 +55,8 @@ public class UserDao extends AbstractDao
 
     public boolean isLoginFree(String login)
     {
-        Query q = getSession().createQuery("from User where login = '" + login + "'");
+        Query q = getSession().createQuery("from User where login=:login");
+        q.setParameter("login", login);
 
         if(q.uniqueResult() != null)
             return false;
@@ -63,16 +64,17 @@ public class UserDao extends AbstractDao
             return true;
     }
 
-    public boolean credentials(String login, String password)
+    public boolean logIn(String login, String password)
     {
-        Query q = getSession().createQuery("from User where login = '" + login + "'");
+        Query q = getSession().createQuery("from User where login = :login");
+        q.setParameter("login", login);
 
-        if(q.uniqueResult() == null)
+        User u = (User) q.uniqueResult();
+
+        if(u == null)
             return false;
         else
         {
-            User u = (User)q.uniqueResult();
-
             if(BCrypt.checkpw(password, u.getPassword()))
                 return true;
             else
