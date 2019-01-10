@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pl-PL">
 
-<head th:replace="template :: head"></head>
+<head th:replace="template :: head">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link rel="stylesheet" href="leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+          integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+          crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+            integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+            crossorigin=""></script>
+</head>
 
 <body>
 
@@ -12,9 +24,10 @@
             <label>Nazwa</label>
             <input type="text" th:field="*{name}"/>
         </div>
-        <div>
+        <div >
             <label>Miejsce</label>
-            <input type="text" th:field="*{place}"/>
+            <input type="text" id = "latitude" th:field="*{place}"/>
+            <input type="text" id = "longitude" th:field="*{place}"/>
         </div>
         <div>
             <label>Maksymalna liczba uczestników</label>
@@ -52,7 +65,31 @@
 
     </form>
 
-    <footer th:replace="template :: footer"></footer>
+    <div id="mapid"></div>
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+    <script>
+
+        var mymap = L.map('mapid').setView([51.1052862455, 17.055921443], 15);
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mymap);
+
+        var markers = [];
+        function onMapClick(e) {
+            v1 = e.latlng.lat;
+            v2 = e.latlng.lng;
+            document.getElementById("latitude").value = v1;
+            document.getElementById("longitude").value = v2;
+            markers.push(L.marker([v1, v2]).addTo(mymap));
+            if((markers.length > 1) ) {
+                mymap.removeLayer(markers[markers.length - 2])
+            }
+        }
+        mymap.on('click', onMapClick);
+
+    </script>
 
 </body>
 
