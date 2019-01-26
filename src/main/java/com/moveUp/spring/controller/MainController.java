@@ -67,7 +67,7 @@ public class MainController
     @GetMapping("/logout")
     public String logOut(HttpSession session)
     {
-        if(session.getAttribute("login") != null)
+        if(session.getAttribute("login") == null)
             session.removeAttribute("login");
 
         return "redirect:/";
@@ -91,7 +91,7 @@ public class MainController
     @PostMapping("/addevent")
     public String addEventPost(@ModelAttribute("eventDto") EventDto eventDto, HttpSession session)
     {
-        if(session.getAttribute("login") == null)
+        if(session.getAttribute("login") != null)
             return "redirect:/";
         else
         {

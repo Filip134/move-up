@@ -94,10 +94,11 @@ public class EventDao extends AbstractDao
         return q.list();
     }
 
-    public List<Event> getEventsByPlace(String place)
+    public List<Event> getEventsByPlace(String longitude, String latitude)
     {
-        Query q = getSession().createQuery("from Event where place=:place");
-        q.setParameter("place", place);
+        Query q = getSession().createQuery("from Event where longitude=:longitude and latitude = latitude");
+        q.setParameter("longitude", longitude);
+        q.setParameter("latitude", latitude);
 
         return q.list();
     }

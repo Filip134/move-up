@@ -31,7 +31,8 @@ public class EventService
         event.setTime(eventDto.getTime());
         event.setCreator(userDao.getUserByLogin(eventDto.getCreatorLogin()));
         event.setActivity(activityDao.getActivityById(eventDto.getActivityId()));
-        event.setPlace(eventDto.getPlace());
+        event.setLatitude(eventDto.getLatitude());
+        event.setLongitude(eventDto.getLongitude());
         event.setMaxJoin(eventDto.getMaxJoin());
         event.setDescription(eventDto.getDescription());
         event.setName(eventDto.getName());

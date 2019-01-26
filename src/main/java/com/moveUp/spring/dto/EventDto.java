@@ -4,7 +4,8 @@ public class EventDto
 {
     private String name;
     private String date;
-    private String place;
+    private String longitude;
+    private String latitude;
     private String time;
     private int maxJoin;
     private long activityId;
@@ -33,17 +34,27 @@ public class EventDto
         this.date = date;
     }
 
-    public String getPlace()
+    public String getLongitude()
     {
-        return place;
+        return longitude;
     }
 
-    public void setPlace(String place)
+    public void setLongitude(String longitude)
     {
-        this.place = place;
+        this.longitude = longitude;
     }
 
-    public String getTime()
+    public String getLatitude()
+    {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude)
+    {
+        this.latitude = latitude;
+    }
+
+    public String  getTime()
     {
         return time;
     }

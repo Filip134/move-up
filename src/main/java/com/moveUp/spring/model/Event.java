@@ -18,7 +18,8 @@ public class Event extends AbstractModel
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    private String place;
+    private String longitude;
+    private String latitude;
     //liczba zapisanych
     private int joinNo;
     //maksymalna liczba biorących udział
@@ -42,11 +43,12 @@ public class Event extends AbstractModel
     @OneToMany(mappedBy = "event")
     private List<Coordinate> coordinates = new ArrayList<>();
 
-    public Event(String name, String description, String place, int maxJoin, Advancement advancement, User creator, java.util.Date date, Activity activity)
+    public Event(String name, String description, String longitude, String latitude, int maxJoin, Advancement advancement, User creator, java.util.Date date, Activity activity)
     {
         this.name = name;
         this.description = description;
-        this.place = place;
+        this.longitude = longitude;
+        this.latitude = latitude;
         this.joinNo = 0;
         this.advancement = advancement;
         this.maxJoin = maxJoin;
@@ -72,14 +74,24 @@ public class Event extends AbstractModel
         this.name = name;
     }
 
-    public String getPlace()
+    public String getLongitude()
     {
-        return place;
+        return longitude;
     }
 
-    public void setPlace(String place)
+    public void setLongitude(String longitude)
     {
-        this.place = place;
+        this.longitude = longitude;
+    }
+
+    public String getLatitude()
+    {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude)
+    {
+        this.latitude = latitude;
     }
 
     public int getJoinNo()
