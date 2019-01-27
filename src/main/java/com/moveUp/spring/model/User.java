@@ -1,5 +1,6 @@
 package com.moveUp.spring.model;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.mindrot.jbcrypt.BCrypt;
@@ -81,4 +82,17 @@ public class User extends AbstractModel
     }
 
     public String getPassword() {return this.password;}
+
+
+    public void removeEventById(long eventId)
+    {
+        for(Event e: events)
+        {
+            if(e.getId() == eventId)
+            {
+                events.remove(e);
+                return;
+            }
+        }
+    }
 }

@@ -15,6 +15,19 @@ public class ActivityService
     @Autowired
     private ActivityDao activityDao;
 
+    public Activity addActivity(String activityName, String team)
+    {
+        boolean t = true;
+
+        if(team == null)
+            t = false;
+
+        Activity activity = new Activity(activityName, t);
+        activityDao.addActivity(activity);
+
+        return activity;
+    }
+
     public List<Activity> getActivities()
     {
         return activityDao.getActivities();

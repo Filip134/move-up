@@ -9,8 +9,8 @@
 
 <main>
 
-    <div th:each="event: ${allEvents}" class="eventDetails">
-        <h3 class="eventName" th:text="${event.getName()}"></h3>
+    <div th:each="event: ${participateEvents}" class="eventDetails">
+        <h2 class="eventName" th:text="${event.getName()}"></h2>
         <div class="eventInfo">
             <p class="eventPoint"><label>Miejsce: </label><span th:text="${event.getPlaceName()}"></span></p>
             <p class="eventPoint"><label>Data: </label><span class="dateFormat" th:text="${event.getDate()}"></span></p>
@@ -19,8 +19,12 @@
         </div>
         <div class="eventDescription" th:text="${event.getDescription()}"></div>
         <div class="clear"></div>
-        <form th:if="${session.user != null}" action="/join" method="post">
-            <button th:if="${event.getMaxJoin() &gt; event.getJoinNo()}" type="submit" name="eventId" class="eventButton" th:value="${event.getId()}">Dołącz</button>
+        <form action="/details" method="post">
+            <button type="submit" name="eventDetailsId" class="eventButton" th:value="${event.getId()}">Szczegóły</button>
+        </form>
+        <form action="/unenroll" method="post">
+            <input class="deleteEventInput" type="hidden" name="deleteEvent" th:value="${event.getId()}"/>
+            <button type="submit" name="eventDetailsId" class="eventButton" th:value="${event.getId()}">Wypisz się</button>
         </form>
         <div class="clr"></div>
     </div>

@@ -42,20 +42,15 @@ public class EventDao extends AbstractDao
         return true;
     }
 
-    public boolean removeUserFromEvent(User user, Event event)
+    public void removeUserFromEvent(User user, Event event)
     {
-        if(!event.getUsers().contains(user))
-            return false;
-
-        event.getUsers().remove(user);
-        user.getEvents().remove(event);
+        event.removeUserByLogin(user.getLogin());
+        user.removeEventById(event.getId());
 
         event.decrementJoinNo();
 
-        getSession().saveOrUpdate(user);
-        getSession().saveOrUpdate(event);
-
-        return true;
+        getSession().update(user);
+        getSession().update(event);
     }
 
     public boolean deleteById(long id)
@@ -127,18 +122,11 @@ public class EventDao extends AbstractDao
         return q.list();
     }
 
-    public List<Event> getEventsByCreator(User creator)
-    {
-        Query q = getSession().createQuery("from Event where creator=:creator");
-        q.setParameter("creator", creator);
 
-        return q.list();
-    }
-
-    public List<Event> getEventsByCreatorLogin(String login)
+    public List<Event> getEventsByCreator(User user)
     {
-        Query q = getSession().createQuery("from Event where creator_login=:creatorLogin");
-        q.setParameter("creatorLogin", login);
+        Query q = getSession().createQuery("from Event where creator=:user");
+        q.setParameter("user", user);
 
         return q.list();
     }
@@ -193,6 +181,49 @@ public class EventDao extends AbstractDao
         }
 
         return q.list();
+    }
+
+//    public List<Event> getEventsByCreatorLogin(String login)
+//    {
+//
+//    }
+
+//    public void updateEventAverage(Event event)
+//    {
+//        Query q = getSession().createQuery("from Rating where event_id=:eventId");
+//        q.setParameter("eventId", event.getId());
+//        List<Rating> ratings = q.list();
+//
+//        float average = 0;
+//
+//        for(Rating r: ratings)
+//        {
+//            average += r.getPoints();
+//        }
+//
+//        average /= ratings.size();
+//        event.setAverage(average);
+//        getSession().update(event);
+//    }
+
+
+    public float getEventAverage(Event event)
+    {
+        Query q = getSession().createQuery("from Rating where event_id=:eventId");
+        q.setParameter("eventId", event.getId());
+        List<Rating> ratings = q.list();
+
+        float average = 0;
+
+        for(Rating r: ratings)
+        {
+            average += r.getPoints();
+        }
+
+        average /= ratings.size();
+        return average;
+//        event.setAverage(average);
+//        getSession().update(event);
     }
 
     public void update(Event event)

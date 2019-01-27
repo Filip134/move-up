@@ -68,7 +68,7 @@
     java.util.Date date;
     Activity activity;
     String description;
-	 List&lt;Opinion&gt; opinions;
+	 List&lt;Opinion&gt; comments;
 </panel_attributes>
     <additional_attributes/>
   </element>

@@ -19,51 +19,53 @@
 
     <header th:replace="template :: header"></header>
 
-    <form th:object="${eventDto}" method="post" enctype="utf8">
-        <div>
-            <label>Nazwa</label>
-            <input type="text" th:field="*{name}"/>
+    <form id="addEventForm" th:object="${eventDto}" method="post" enctype="utf8" onsubmit="return addEventValidation()">
+        <input type="text" autocomplete="off" placeholder="Nazwa wydarzenia" th:field="*{name}" th:required="required"/><br/>
+        <input type="text" autocomplete="off" placeholder="Nazwa miejsca" th:field="*{placeName}" th:required="required"/><br/>
+        <label>Współrzędne miejsca</label>
+        <input type="text" id = "latitude" th:field="*{longitude}"/>
+        <input type="text" id = "longitude" th:field="*{latitude}"/>
+        <label>Maksymalna liczba uczestników</label>
+        <input type="number" min="2" max="10000" placeholder="Maksymalna liczba uczestników" th:field="*{maxJoin}"/><br/>
+        <textarea autocomplete="off" placeholder="Opis" onkeyup="adjustTextarea(this)" th:field="*{description}"></textarea><br/>
+        <label>Data</label>
+        <input id="date" type="date" th:field="*{date}" th:required="required"/><br/>
+        <label>Czas</label>
+        <input id="time" type="time" th:field="*{time}" th:required="required"/><br/>
+        <p id="wrongDate"><small>Proszę podać nadchodzącą datę</small></p><br/>
+        <label>Kategoria</label>
+        <select th:field="*{activityId}">
+            <option
+                    th:each="act: ${activities}"
+                    th:value="${act.getId()}"
+                    th:text="${act.getName()}" >
+            </option>
+        </select>
+
+        <button class="openActivityPopup" type="button" onclick="openActivityPopup()">Dodaj kategorię</button><br/><br/>
+
+        <div id="activityPopup">
+            <div class="activityPopupContent animate">
+                <input id="activityName" placeholder="Nazwa" autocomplete="off" type="text" th:field="*{activityName}"/>
+                <br/><br/>
+                <input type="checkbox" value="1" th:field="*{team}"/> Aktywność zespołowa<br/><br/>
+                <button type="button" class="okButton" onclick="closeActivityPopup()">OK</button>
+                <button type="button" class="cancelButton" onclick="resetActivityPopup()">Anuluj</button>
+            </div>
         </div>
-        <div >
-            <label>Miejsce</label>
-            <input type="text" id = "latitude" th:field="*{longitude}"/>
-            <input type="text" id = "longitude" th:field="*{latitude}"/>
-        </div>
-        <div>
-            <label>Maksymalna liczba uczestników</label>
-            <input type="number" min="2" th:field="*{maxJoin}"/>
-        </div>
-        <div>
-            <label>Opis</label>
-            <textarea th:field="*{description}"></textarea>
-        </div>
-        <div>
-            <label>Data</label>
-            <input type="date" th:field="*{date}"/>
-        </div>
-        <div>
-            <label>Czas</label>
-            <input type="time" th:field="*{time}"/>
-        </div>
-        <div>
-            <label>Kategoria</label>
-            <select th:field="*{activityId}">
-                <option
-                        th:each="act: ${activities}"
-                        th:value="${act.getId()}"
-                        th:text="${act.getName()}" ></option>
-            </select>
-        </div>
-        <div>
-            <select th:field="*{advancement}">
-                <option th:value="beginner" th:text="Początkujący"></option>
-                <option th:value="intermediate" th:text="Sredni"></option>
-                <option th:value="advanced" th:text="Zaawansowany"></option>
-            </select>
-        </div>
-        <input type="submit" value="Dodaj wydarzenie"/>
+
+        <label>Poziom zaawansowania</label>
+        <select th:field="*{advancement}">
+            <option th:value="beginner" th:text="Początkujący"></option>
+            <option th:value="intermediate" th:text="Sredni"></option>
+            <option th:value="advanced" th:text="Zaawansowany"></option>
+        </select>
+
+        <input class="eventButton" type="submit" value="Dodaj"/>
+        <div class="clr"></div>
 
     </form>
+
 
     <div id="mapid"></div>
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -90,6 +92,11 @@
         mymap.on('click', onMapClick);
 
     </script>
+
+    <footer th:replace="template :: footer"></footer>
+
+    <script th:src="@{/js/script.js}"></script>
+
 
 </body>
 

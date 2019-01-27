@@ -176,6 +176,11 @@ h1.login-title
 
 }
 
+.clr
+{
+    clear: both;
+}
+
 .login-input
 {
     width: 285px;
@@ -184,7 +189,8 @@ h1.login-title
     padding-left:10px;
     font-size: 15px;
     background: #fff;
-    border: 1px solid #ccc;
+    border: none;
+    border-bottom: 1px solid #ccc;
     border-radius: 4px;
 }
 
@@ -194,7 +200,7 @@ h1.login-title
     outline: none;
 }
 
-.login-button
+.loginButton
 {
     width: 100%;
     height: 50px;
@@ -222,7 +228,7 @@ h1.login-title
     font-size:13px;
 }
 
-.createdEvent
+.eventDetails
 {
     margin-left: 10px;
     height: auto;
@@ -230,9 +236,16 @@ h1.login-title
     box-sizing: border-box;
 }
 
-.createdEvent:nth-child(odd)
+.eventDetails:nth-child(odd)
 {
-    background-color: lightgrey;
+    background-color: #ebedf4;
+}
+
+.eventDetails h2
+{
+    margin: 5px;
+    margin-top: 15px;
+    letter-spacing: 2px;
 }
 
 .eventName
@@ -273,6 +286,311 @@ h1.login-title
     background-color: #91acd8;
     margin-left: 10px;
     margin-bottom: 5px;
+}
+
+#addEventForm label
+{
+    color: darkgrey;
+}
+
+#addEventForm
+{
+    font-family: 'Open Sans Condensed', arial, sans;
+    width: 500px;
+    padding: 30px;
+    background: #FFFFFF;
+    margin: 50px auto;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
+}
+
+#addEventForm input[type="text"],
+#addEventForm input[type="date"],
+#addEventForm input[type="datetime"],
+#addEventForm input[type="email"],
+#addEventForm input[type="number"],
+#addEventForm input[type="search"],
+#addEventForm input[type="time"],
+#addEventForm input[type="url"],
+#addEventForm input[type="password"],
+#addEventForm textarea,
+#addEventForm select
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    /*outline: none;*/
+    display: block;
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 45px;
+}
+
+#addEventForm textarea
+{
+    resize:none;
+    overflow: hidden;
+}
+
+.eventButton
+{
+    -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    background-color: #2CBBBB;
+    border: 1px solid #27A0A0;
+    display: inline-block;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    margin-right: 10px;
+    float: left;
+}
+
+.eventDetails .eventButton
+{
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+#addEventSubmitButton
+{
+    visibility: hidden;
+}
+
+.eventButton:hover
+{
+    background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
+    background-color:#34CACA;
+}
+
+#wrongDate
+{
+    display: none;
+    color: red;
+}
+
+.openActivityPopup
+{
+    background: none;
+    border: none;
+    color: #87a3d1;
+    cursor: pointer;
+    bottom: 23px;
+    right: 28px;
+}
+
+#activityPopup
+{
+    display:none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.activityPopupContent
+{
+    background-color: white;
+    display: inline-block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 220px;
+    height: 230px;
+    margin: auto;
+    padding-top: 60px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.activityPopupContent input[type="text"]
+{
+    border: none;
+    border-bottom: 1px solid grey;
+    width: 210px;
+    min-height: 30px;
+}
+
+.activityPopupContent button
+{
+    margin-left: 40px;
+    color: white;
+    min-width: 50px;
+    min-height: 30px;
+    font-weight: bold;
+    border: none;
+}
+
+.okButton
+{
+    background-color: #4CAF50;
+}
+
+.cancelButton
+{
+    background-color: red;
+}
+
+.animate
+{
+    animation: zoom 0.6s
+}
+
+@keyframes zoom
+{
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+
+
+#passwordRegex
+{
+    display:none;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+#changePasswordRegex
+{
+    color: red;
+    display:none;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+#matchingPassword
+{
+    display:none;
+    color: red;
+    background: white;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+#takenLogin
+{
+    color: red;
+    background: white;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+#wrongCredentials
+{
+    color: red;
+    position: relative;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+
+#rating span
+{
+    cursor: pointer;
+    font-size: 50px;
+    padding: 0 10px;
+    /*color: #2CBBBB;*/
+    opacity: .5;
+    transition: all 150ms;
+    display: inline-block;
+    /*transform: rotateX(45deg);*/
+    transform-origin: center bottom;
+}
+
+#notHappened
+{
+    display: none;
+    color: red;
+}
+
+#rating span.hover
+{
+    /*color: #ff0;*/
+    opacity: 1;
+    /*transform: rotateX(0deg);*/
+    /*text-shadow: 0 0 30px #ffc;*/
+}
+
+.commentSection
+{
+    margin-top: 50px;
+    /*background-color: red;*/
+}
+
+.addCommentForm
+{
+    width: 100%;
+    margin: auto;
+    /*background-color: yellow;*/
+    box-sizing: border-box;
+    padding: 0;
+    margin-bottom: 25px;
+}
+
+.commentDetail
+{
+    float: left;
+    margin-right: 10px;
+}
+
+.comment span
+{
+    margin-right: 10px;
+    color: grey;
+    font-size: 13px;
+}
+
+.addCommentText
+{
+    float: left;
+    height: 25px;
+    width: 90%;
+    border: none;
+    border-bottom: #ADADAD 1px solid;
+    resize: none;
+    box-sizing: border-box;
+
+}
+
+.commentContent
+{
+    padding-left: 5px;
+}
+
+.comment
+{
+    border-bottom: #ADADAD 1px solid;
+    margin-bottom: 30px;
+}
+
+.addCommentForm .eventButton
+{
+    margin: 0;
+    width: 10%;
+    box-sizing: border-box;
+}
+
+.commentContent
+{
+    height: 10px;
 }
 
 

@@ -1,5 +1,7 @@
 package com.moveUp.spring.dto;
 
+import com.moveUp.spring.model.User;
+
 public class EventDto
 {
     private String name;
@@ -9,10 +11,12 @@ public class EventDto
     private String time;
     private int maxJoin;
     private long activityId;
-    private String creatorLogin;
+    private String activityName;
+    private String team;
     private String description;
     private String advancement;
-
+    private User creator;
+    private String placeName;
 
     public String getName()
     {
@@ -84,14 +88,14 @@ public class EventDto
         this.activityId = activityId;
     }
 
-    public String getCreatorLogin()
+    public User getCreator()
     {
-        return creatorLogin;
+        return creator;
     }
 
-    public void setCreatorLogin(String creatorLogin)
+    public void setCreator(User creator)
     {
-        this.creatorLogin = creatorLogin;
+        this.creator = creator;
     }
 
     public String getDescription()
@@ -112,6 +116,36 @@ public class EventDto
     public void setAdvancement(String advancement)
     {
         this.advancement = advancement;
+    }
+
+    public String getActivityName()
+    {
+        return activityName;
+    }
+
+    public void setActivityName(String activityName)
+    {
+        this.activityName = activityName;
+    }
+
+    public String getTeam()
+    {
+        return team;
+    }
+
+    public void setTeam(String team)
+    {
+        this.team = team;
+    }
+
+    public String getPlaceName()
+    {
+        return placeName;
+    }
+
+    public void setPlaceName(String placeName)
+    {
+        this.placeName = placeName;
     }
 }
 

@@ -23,21 +23,34 @@ public class EventService
     private UserDao userDao;
     @Autowired
     private ActivityDao activityDao;
+    @Autowired
+    private ActivityService activityService;
 
     public boolean addEvent(EventDto eventDto)
     {
         Event event = new Event();
         event.setDate(eventDto.getDate());
         event.setTime(eventDto.getTime());
-        event.setCreator(userDao.getUserByLogin(eventDto.getCreatorLogin()));
-        event.setActivity(activityDao.getActivityById(eventDto.getActivityId()));
+        event.setCreator(eventDto.getCreator());
+
+        if(eventDto.getActivityName() != null)
+        {
+            if(!eventDto.getActivityName().equals(""))
+                event.setActivity(activityService.addActivity(eventDto.getActivityName(), eventDto.getTeam()));
+            else
+                event.setActivity(activityDao.getActivityById(eventDto.getActivityId()));
+        }
+        else
+            event.setActivity(activityDao.getActivityById(eventDto.getActivityId()));
+
         event.setLatitude(eventDto.getLatitude());
         event.setLongitude(eventDto.getLongitude());
         event.setMaxJoin(eventDto.getMaxJoin());
         event.setDescription(eventDto.getDescription());
         event.setName(eventDto.getName());
+        event.setPlaceName(eventDto.getPlaceName());
 
-        if(eventDto.getAdvancement().equals("begginer"))
+        if(eventDto.getAdvancement().equals("beginner"))
             event.setAdvancement(Advancement.BEGINNER);
         else if(eventDto.getAdvancement().equals("intermediate"))
             event.setAdvancement(Advancement.INTERMEDIATE);
@@ -51,10 +64,15 @@ public class EventService
             return false;
     }
 
-    public List<Event> getCreatedEvents(String login)
+    public List<Event>getEventsByCreator(User user)
     {
-        return eventDao.getEventsByCreatorLogin(login);
+        return eventDao.getEventsByCreator(user);
     }
+
+//    public List<Event> getCreatedEvents(String login)
+//    {
+//        return eventDao.getEventsByCreatorLogin(login);
+//    }
 
     public List<Event> getAllEvents()
     {
@@ -72,8 +90,29 @@ public class EventService
         return eventDao.getJoinableEvents(user);
     }
 
+    public Event getEventById(long id)
+    {
+        return eventDao.getEventById(id);
+    }
+
+    public void removeUserFromEvent(User user, long eventId)
+    {
+        Event event = eventDao.getEventById(eventId);
+        eventDao.removeUserFromEvent(user, event);
+    }
+
+    public List<Event> getJoinableEvents(User user)
+    {
+        return eventDao.getJoinableEvents(user);
+    }
+
     public void deleteEventById(long id)
     {
         eventDao.deleteById(id);
+    }
+
+    public void addUserToEvent(User user, long eventId)
+    {
+        eventDao.addUserToEvent(user, eventDao.getEventById(eventId));
     }
 }

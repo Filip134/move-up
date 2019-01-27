@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl-PL">
+
+<head th:replace="template :: head"></head>
+
+<body>
+
+<head th:replace="template :: header"></head>
+
+<main>
+
+    <div class="eventDetails">
+        <h3 class="eventName" th:text="${eventDetails.getName()}"></h3>
+        <div class="eventInfo">
+            <p class="eventPoint"><label>Miejsce: </label><span th:text="${eventDetails.getPlaceName()}"></span></p>
+            <p class="eventPoint"><label>Data: </label><span id="dateFormat" class="dateFormat" th:text="${eventDetails.getDate()}"></span></p>
+            <p class="eventPoint"><label>Kategoria: </label><span th:text="${eventDetails.getActivity().getName()}"></span></p>
+            <p class="eventPoint"><label>Liczba zapisanych: </label><span th:text="${eventDetails.getJoinNo()}"></span>/<span th:text="${eventDetails.getMaxJoin()}"></span></p>
+            <p class="eventPoint"><label>Ocena: </label><span th:text="${eventDetails.getAverage()}"></span></p>
+        </div>
+        <div class="eventDescription" th:text="${eventDetails.getDescription()}"></div>
+        <div class="clr"></div>
+    </div>
+
+    <div id="rating">
+        <form action="/rating" method="post" id="ratingForm">
+            <input type="hidden" id="stars" name="stars" value="0"/>
+            <input type="hidden" name="detailsEventId" th:value="${eventDetails.getId()}"/>
+        </form>
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+        <div id="notHappened"><small>Wydarzenie jeszcze się nie odbyło</small></div>
+    </div>
+
+    <div class="commentSection">
+        <form th:object="${commentDto}" class="addCommentForm" method="post" enctype="utf8"  action="/addcomment">
+            <textarea class="addCommentText" placeholder="Dodaj komentarz..." name="message" th:field="*{content}"></textarea>
+            <input type="hidden" name="commentEventId" th:value="${eventDetails.getId()}"/>
+            <button class="eventButton" type="submit" name="commentSubmit">Skomentuj</button>
+            <div class="clr"></div>
+        </form>
+        <div th:each="comment: ${comments}" class="comment">
+            <span th:text="${comment.getUser().getLogin()}"></span>
+            <span class="dateFormat" th:text="${comment.getDate()}"></span>
+            <div class="clr"></div>
+            <p class="commentContent" th:text="${comment.getContent()}"></p>
+        </div>
+    </div>
+
+</main>
+
+<footer th:replace="template :: footer"></footer>
+
+<script th:src="@{/js/rating.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/dateFormat.js}"></script>
+<script>dateFormat()</script>
+
+</body>
+</html>

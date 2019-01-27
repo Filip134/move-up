@@ -7,16 +7,34 @@
 
     <header th:replace="template :: header"></header>
 
-    <form class="login" th:object="${userDto}" method="post" enctype="utf8">
+    <form class="login" th:object="${userDto}" method="post" enctype="utf8" onsubmit="return validatePassword()">
         <h1 class="login-title">Rejestracja</h1>
-        <input th:field="*{login}" type="text" class="login-input" placeholder="login" autofocus=""/>
-        <input th:field="*{password}" type="password" class="login-input" placeholder="hasło"/>
-        <input th:field="*{confirmPassword}" type="password" class="login-input" placeholder="potwierdź hasło"/>
-        <input type="submit" value="Zarejestruj" class="login-button"/>
+        <input th:field="*{login}" type="text" id="login" autocomplete="off" class="login-input" placeholder="login" th:required="required" autofocus=""/>
+        <div id="takenLogin" th:if="${session.takenLogin != null}"><small>Użytkownik o podanej nazwie już istnieje</small></div>
+        <input th:field="*{password}" type="password" id="password" placeholder="hasło" class="login-input" autocomplete="off" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" th:required="required"/>
+        <input th:field="*{confirmPassword}" type="password" id="confirmPassword" autocomplete="off" class="login-input" placeholder="potwierdź hasło" th:required="required"/>
+        <div id="passwordRegex">
+            <small>
+                <h4>Hasło musi zawierać:</h4>
+                Małą literę<br/>
+                Dużą literę<br/>
+                Cyfrę<br/>
+                Znak specjalny<br/>
+                Minimum 8 znaków<br/>
+            </small>
+        </div>
+
+        <input class="loginButton" type="submit" value="Zarejestruj"></input>
+
+        <div id="matchingPassword"><small>Błędnie powtórzone hasło</small></div>
+
         <p class="login-register"><a th:href="@{/login}">Masz konto?<br/>Zaloguj się</a></p>
+
     </form>
 
     <footer th:replace="template :: footer"></footer>
+
+    <script th:src="@{/js/registration.js}"></script>
 
 </body>
 

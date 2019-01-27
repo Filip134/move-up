@@ -64,21 +64,22 @@ public class UserDao extends AbstractDao
             return true;
     }
 
-    public boolean logIn(String login, String password)
+    public User logIn(String login, String password)
     {
         Query q = getSession().createQuery("from User where login = :login");
         q.setParameter("login", login);
 
-        User u = (User) q.uniqueResult();
+        User user = (User) q.uniqueResult();
 
-        if(u == null)
-            return false;
+        if(user == null)
+            return null;
+
         else
         {
-            if(BCrypt.checkpw(password, u.getPassword()))
-                return true;
+            if(BCrypt.checkpw(password, user.getPassword()))
+                return user;
             else
-                return false;
+                return null;
         }
     }
 
@@ -88,6 +89,10 @@ public class UserDao extends AbstractDao
         return user;
     }
 
+    public void updateUser(User user)
+    {
+        getSession().update(user);
+    }
 
     public List<User> getUsersByAvg(double average)
     {

@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -30,18 +31,18 @@ public class Event extends AbstractModel
     @ManyToMany(fetch = FetchType.EAGER)
     //użytkownicy zapisani na event
     private List<User> users = new ArrayList<User>();
-    private java.util.Date date = null;
+    private Date date = null;
     @ManyToOne
     private Activity activity;
     private String description;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "event", orphanRemoval=true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval=true)
     @Fetch(value = FetchMode.SUBSELECT)
     //opinie do eventu
-    private List<Opinion> opinions = new ArrayList<Opinion>();
+    private List<Comment> comments = new ArrayList<Comment>();
     @Transient
-    private java.util.Date time;
-    @OneToMany(mappedBy = "event")
-    private List<Coordinate> coordinates = new ArrayList<>();
+    private Date time;
+    private float average;
+    private String placeName;
 
     public Event(String name, String description, String longitude, String latitude, int maxJoin, Advancement advancement, User creator, java.util.Date date, Activity activity)
     {
@@ -159,14 +160,14 @@ public class Event extends AbstractModel
         this.description = description;
     }
 
-    public List<Opinion> getOpinions()
+    public List<Comment> getComments()
     {
-        return opinions;
+        return comments;
     }
 
-    public void setOpinions(List<Opinion> opinions)
+    public void setComments(List<Comment> comments)
     {
-        this.opinions = opinions;
+        this.comments = comments;
     }
 
     public int getMaxJoin()
@@ -207,14 +208,35 @@ public class Event extends AbstractModel
             String dateString = "" + cal.get(Calendar.YEAR) + "-" + month + "-" + cal.get(Calendar.DAY_OF_MONTH);
             cal.setTime(this.time);
             dateString += " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
-            try { this.date = format.parse(dateString); }
+            try { this.date = format.parse(dateString);
+            System.out.println(this.date);}
             catch (ParseException e) { e.printStackTrace(); }
         }
+    }
+
+    public String getPlaceName()
+    {
+        return placeName;
+    }
+
+    public void setPlaceName(String placeName)
+    {
+        this.placeName = placeName;
     }
 
     public java.util.Date getTime()
     {
         return this.time;
+    }
+
+    public float getAverage()
+    {
+        return average;
+    }
+
+    public void setAverage(float average)
+    {
+        this.average = average;
     }
 
     public  void incrementJoinNo()
@@ -226,6 +248,18 @@ public class Event extends AbstractModel
     {
         if(this.joinNo > 0)
             this.joinNo--;
+    }
+
+    public void removeUserByLogin(String userLogin)
+    {
+        for(User u: users)
+        {
+            if(u.getLogin().equals(userLogin))
+            {
+                users.remove(u);
+                return;
+            }
+        }
     }
 }
 

@@ -13,30 +13,34 @@
 
 <header th:replace="template :: header"></header>
 
-<form class="login" action="/login" method="post">
+<form class="login" id="loginForm" action="/login" method="post">
     <h1 class="login-title">Logowanie</h1>
-    <input type="text" class="login-input" name="login" placeholder="login" autofocus=""/>
-    <input type="password" class="login-input" name="password" placeholder="hasło"/>
-    <input type="submit" value="Zaloguj" class="login-button"/>
+    <input type="text" autocomplete="off" id="login" class="login-input" name="login" placeholder="login" th:required="required"/>
+    <input type="password" autocomplete="off" id="password" class="login-input" name="password" placeholder="hasło" th:required="required"/>
+    <div id="wrongCredentials" th:if="${session.wrongCredentials != null}"><small>Błędny login lub hasło</small></div>
+    <input class="loginButton" type="submit" value="Zaloguj"></input>
     <p class="login-register"><a th:href="@{/registration}">Nie masz konta?<br/>Zarejestruj się</a></p>
+
 </form>
 
 
-<div id="mapid"></div>
-<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<!--<div id="mapid"></div>-->
+<!--<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>-->
 
-<script>
+<!--<script>-->
 
-    var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+    <!--var mymap = L.map('mapid').setView([51.505, -0.09], 13);-->
 
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(mymap);
+    <!--L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {-->
+        <!--attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'-->
+    <!--}).addTo(mymap);-->
 
 
-</script>
+<!--</script>-->
 
 <footer th:replace="template :: footer"></footer>
+
+<script th:src="@{/js/login.js}"></script>
 
 </body>
 </html>

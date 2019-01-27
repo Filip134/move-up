@@ -1,9 +1,8 @@
 package com.moveUp.spring.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
 
 @Entity
 public class Activity extends AbstractModel
@@ -15,10 +14,10 @@ public class Activity extends AbstractModel
     private boolean team;
     private String name;
 
-    public Activity(boolean team, String name)
+    public Activity(String name, boolean team)
     {
-        this.team = team;
         this.name = name;
+        this.team = team;
     }
 
     public Activity(){}
@@ -26,6 +25,11 @@ public class Activity extends AbstractModel
     public long getId()
     {
         return id;
+    }
+
+    public void setId(long id)
+    {
+        this.id = id;
     }
 
     public boolean isTeam()

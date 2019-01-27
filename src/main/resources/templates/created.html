@@ -9,11 +9,11 @@
 
 <main>
 
-    <div th:each="event: ${createdEvents}" class="createdEvent">
-        <h3 class="eventName" th:text="${event.getName()}"></h3>
+    <div th:each="event: ${createdEvents}" class="eventDetails">
+        <h2 class="eventName" th:text="${event.getName()}"></h2>
         <div class="eventInfo">
-            <p class="eventPoint"><label>Miejsce: </label><span th:text="${event.getPlace()}"></span></p>
-            <p class="eventPoint"><label>Data: </label><span th:text="${event.getDate()}"></span></p>
+            <p class="eventPoint"><label>Miejsce: </label><span th:text="${event.getPlaceName()}"></span></p>
+            <p class="eventPoint"><label>Data: </label><span class="dateFormat" th:text="${event.getDate()}"></span></p>
             <p class="eventPoint"><label>Kategoria: </label><span th:text="${event.getActivity().getName()}"></span></p>
             <p class="eventPoint"><label>Liczba zapisanych: </label><span th:text="${event.getJoinNo()}"></span></p>
         </div>
@@ -21,14 +21,17 @@
         <div class="clear"></div>
         <form action="/deleteevent" method="post">
             <input class="deleteEventInput" type="hidden" name="deleteEvent" th:value="${event.getId()}"/>
-            <input type="submit" class="deleteEvent" value="Usuń"/>
+            <input type="submit" class="eventButton" value="Usuń"/>
         </form>
+        <div class="clr"></div>
     </div>
 
 
 </main>
 
 <footer th:replace="template :: footer"></footer>
+<script th:src="@{/js/dateFormat.js}"></script>
+<script>dateFormat()</script>
 
 </body>
 </html>
