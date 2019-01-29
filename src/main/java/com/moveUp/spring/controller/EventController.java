@@ -80,12 +80,12 @@ public class EventController
     @GetMapping("/search")
     public String searchGet(HttpSession session, Model model)
     {
-        if(session.getAttribute("user") == null)
-            model.addAttribute("allEvents", eventService.getAllEvents());
-        else
-            model.addAttribute("allEvents", eventService.getJoinableEvents((User) session.getAttribute("user")));
+//        if(session.getAttribute("user") == null)
+//            model.addAttribute("allEvents", eventService.getAllEvents());
+//        else
+//            model.addAttribute("allEvents", eventService.getJoinableEvents((User) session.getAttribute("user")));
 
-        return "events";
+        return "search";
     }
 
     @PostMapping("deleteevent")

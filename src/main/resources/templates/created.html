@@ -7,7 +7,7 @@
 
 <head th:replace="template :: header"></head>
 
-<main>
+<div class="createdContainer">
 
     <div th:each="event: ${createdEvents}" class="eventDetails">
         <h2 class="eventName" th:text="${event.getName()}"></h2>
@@ -27,7 +27,7 @@
     </div>
 
 
-</main>
+</div>
 
 <footer th:replace="template :: footer"></footer>
 <script th:src="@{/js/dateFormat.js}"></script>

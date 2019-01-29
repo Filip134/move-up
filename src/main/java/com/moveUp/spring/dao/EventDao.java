@@ -183,28 +183,13 @@ public class EventDao extends AbstractDao
         return q.list();
     }
 
-//    public List<Event> getEventsByCreatorLogin(String login)
-//    {
-//
-//    }
+    public List<Event> getEventsByText(String text)
+    {
+        Query q = getSession().createQuery("from Event where name like :text");
+        q.setParameter("text", "%"+text+"%");
 
-//    public void updateEventAverage(Event event)
-//    {
-//        Query q = getSession().createQuery("from Rating where event_id=:eventId");
-//        q.setParameter("eventId", event.getId());
-//        List<Rating> ratings = q.list();
-//
-//        float average = 0;
-//
-//        for(Rating r: ratings)
-//        {
-//            average += r.getPoints();
-//        }
-//
-//        average /= ratings.size();
-//        event.setAverage(average);
-//        getSession().update(event);
-//    }
+        return q.list();
+    }
 
 
     public float getEventAverage(Event event)

@@ -1,6 +1,5 @@
 package com.moveUp.spring.model;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.mindrot.jbcrypt.BCrypt;

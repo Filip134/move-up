@@ -36,15 +36,15 @@ StarRating.prototype.clickStarListener = function()
     var eventDate = new Date(document.getElementById("dateFormat").innerText);
     var currentDate = new Date();
 
-    // if(eventDate > currentDate)
-    // {
-    //     setTimeout(function(){
-    //         document.getElementById("notHappened").style.display = "none";
-    //         //do what you need here
-    //     }, 2000);
-    //     document.getElementById("notHappened").style.display = "block";
-    // }
-    // else
+    if(eventDate > currentDate)
+    {
+        setTimeout(function(){
+            document.getElementById("notHappened").style.display = "none";
+            //do what you need here
+        }, 2000);
+        document.getElementById("notHappened").style.display = "block";
+    }
+    else
     {
         stars.value = starsCount;
         ratingForm.submit();

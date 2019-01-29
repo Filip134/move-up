@@ -12,6 +12,11 @@ function openActivityPopup()
 function closeActivityPopup()
 {
     document.getElementById("activityPopup").style.display = "none";
+    var select = document.getElementById("selectActivity");
+    var option = document.createElement("option");
+    option.text = document.getElementById("activityName").value;
+    select.add(option);
+    select.selectedIndex = select.length -1;
 }
 
 function resetActivityPopup()

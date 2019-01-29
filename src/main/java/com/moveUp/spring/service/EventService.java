@@ -113,6 +113,19 @@ public class EventService
 
     public void addUserToEvent(User user, long eventId)
     {
-        eventDao.addUserToEvent(user, eventDao.getEventById(eventId));
+        Event event = eventDao.getEventById(eventId);
+
+        for(User u: event.getUsers())
+        {
+            if(u.getLogin().equals(user.getLogin()))
+                return;
+        }
+
+        eventDao.addUserToEvent(user, event);
+    }
+
+    public List<Event> getEventsByText(String text)
+    {
+        return eventDao.getEventsByText(text);
     }
 }

@@ -2,6 +2,8 @@ package com.moveUp.spring.model;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 
 import javax.persistence.*;
 import java.text.ParseException;
@@ -30,6 +32,7 @@ public class Event extends AbstractModel
     private User creator;
     @ManyToMany(fetch = FetchType.EAGER)
     //użytkownicy zapisani na event
+
     private List<User> users = new ArrayList<User>();
     private Date date = null;
     @ManyToOne
@@ -42,7 +45,9 @@ public class Event extends AbstractModel
     @Transient
     private Date time;
     private float average;
+    @Field(index=Index.YES, analyze=Analyze.YES)
     private String placeName;
+
 
     public Event(String name, String description, String longitude, String latitude, int maxJoin, Advancement advancement, User creator, java.util.Date date, Activity activity)
     {

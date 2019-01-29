@@ -7,7 +7,7 @@
 
 <head th:replace="template :: header"></head>
 
-<main>
+<div class="detailsContainer">
 
     <div class="eventDetails">
         <h3 class="eventName" th:text="${eventDetails.getName()}"></h3>
@@ -19,21 +19,38 @@
             <p class="eventPoint"><label>Ocena: </label><span th:text="${eventDetails.getAverage()}"></span></p>
         </div>
         <div class="eventDescription" th:text="${eventDetails.getDescription()}"></div>
+
         <div class="clr"></div>
+
+        <h3>Oceń wydarzenie</h3>
+
+        <div id="rating">
+            <form action="/rating" method="post" id="ratingForm">
+                <input type="hidden" id="stars" name="stars" value="0"/>
+                <input type="hidden" name="detailsEventId" th:value="${eventDetails.getId()}"/>
+            </form>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <div id="notHappened"><small>Wydarzenie jeszcze się nie odbyło</small></div>
+        </div>
+
     </div>
 
-    <div id="rating">
-        <form action="/rating" method="post" id="ratingForm">
-            <input type="hidden" id="stars" name="stars" value="0"/>
-            <input type="hidden" name="detailsEventId" th:value="${eventDetails.getId()}"/>
-        </form>
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-        <div id="notHappened"><small>Wydarzenie jeszcze się nie odbyło</small></div>
-    </div>
+    <!--<div id="rating">-->
+        <!--<form action="/rating" method="post" id="ratingForm">-->
+            <!--<input type="hidden" id="stars" name="stars" value="0"/>-->
+            <!--<input type="hidden" name="detailsEventId" th:value="${eventDetails.getId()}"/>-->
+        <!--</form>-->
+        <!--<span>★</span>-->
+        <!--<span>★</span>-->
+        <!--<span>★</span>-->
+        <!--<span>★</span>-->
+        <!--<span>★</span>-->
+        <!--<div id="notHappened"><small>Wydarzenie jeszcze się nie odbyło</small></div>-->
+    <!--</div>-->
 
     <div class="commentSection">
         <form th:object="${commentDto}" class="addCommentForm" method="post" enctype="utf8"  action="/addcomment">
@@ -50,7 +67,7 @@
         </div>
     </div>
 
-</main>
+</div>
 
 <footer th:replace="template :: footer"></footer>
 

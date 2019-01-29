@@ -15,16 +15,18 @@
             crossorigin=""></script>
 </head>
 
-<body>
+<body id="addEventBody">
 
     <header th:replace="template :: header"></header>
 
+    <div class="addEventContainer">
     <form id="addEventForm" th:object="${eventDto}" method="post" enctype="utf8" onsubmit="return addEventValidation()">
         <input type="text" autocomplete="off" placeholder="Nazwa wydarzenia" th:field="*{name}" th:required="required"/><br/>
         <input type="text" autocomplete="off" placeholder="Nazwa miejsca" th:field="*{placeName}" th:required="required"/><br/>
         <label>Współrzędne miejsca</label>
-        <input type="text" id = "latitude" th:field="*{longitude}"/>
-        <input type="text" id = "longitude" th:field="*{latitude}"/>
+        <input type="text" id = "latitude" th:field="*{longitude}" th:required="required"/>
+        <input type="text" id = "longitude" th:field="*{latitude}" th:required="required"/>
+        <button class="openActivityPopup" type="button" onclick="openMap()">Dodaj współrzędne</button><br/><br/>
         <label>Maksymalna liczba uczestników</label>
         <input type="number" min="2" max="10000" placeholder="Maksymalna liczba uczestników" th:field="*{maxJoin}"/><br/>
         <textarea autocomplete="off" placeholder="Opis" onkeyup="adjustTextarea(this)" th:field="*{description}"></textarea><br/>
@@ -34,7 +36,7 @@
         <input id="time" type="time" th:field="*{time}" th:required="required"/><br/>
         <p id="wrongDate"><small>Proszę podać nadchodzącą datę</small></p><br/>
         <label>Kategoria</label>
-        <select th:field="*{activityId}">
+        <select id="selectActivity" th:field="*{activityId}">
             <option
                     th:each="act: ${activities}"
                     th:value="${act.getId()}"
@@ -66,37 +68,16 @@
 
     </form>
 
-
-    <div id="mapid"></div>
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-
-    <script>
-
-        var mymap = L.map('mapid').setView([51.1052862455, 17.055921443], 15);
-
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(mymap);
-
-        var markers = [];
-        function onMapClick(e) {
-            v1 = e.latlng.lat;
-            v2 = e.latlng.lng;
-            document.getElementById("latitude").value = v1;
-            document.getElementById("longitude").value = v2;
-            markers.push(L.marker([v1, v2]).addTo(mymap));
-            if((markers.length > 1) ) {
-                mymap.removeLayer(markers[markers.length - 2])
-            }
-        }
-        mymap.on('click', onMapClick);
-
-    </script>
+    <div id="mapContainer">
+        <div id="mapid" class="animate"></div>
+    </div>
+    </div>
 
     <footer th:replace="template :: footer"></footer>
 
     <script th:src="@{/js/script.js}"></script>
-
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script th:src="@{/js/map.js}"></script>
 
 </body>
 

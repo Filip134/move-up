@@ -120,6 +120,6 @@ public class UserController
         long eventId = Long.parseLong(request.getParameter("eventId"));
         eventService.addUserToEvent(user, eventId);
 
-        return "redirect:/search";
+        return "redirect:/participate";
     }
 }

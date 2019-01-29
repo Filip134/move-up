@@ -18,13 +18,130 @@
     }
 }
 
-
 body
 {
-    background-color: white;
-    color: black;
+    margin: 0;
+    padding: 0;
+    /*background-color: yellow;*/
+    color: white;
     font-family: 'Open Sans', sans-serif;
     font-size: 17px;
+}
+
+header
+{
+    background-color: black;
+    height: 100px;
+}
+
+.indexMain
+{
+    background-image: url("../img/index-background.jpg");
+    background-repeat: no-repeat;
+    background-position: right top;
+    min-height: 650px;
+}
+
+.loginContainer
+{
+    background-image: url("../img/login-background.jpg");
+    background-repeat: no-repeat;
+    background-position: right top;
+    min-height: 650px;
+    padding-top: 100px;
+}
+
+.registrationContainer
+{
+    background-image: url("../img/registration-background.jpg");
+    background-repeat: no-repeat;
+    background-position: right top;
+    min-height: 650px;
+    padding-top: 100px;
+}
+
+.addEventContainer
+{
+    background-image: url("../img/addEvent-background.jpg");
+    background-repeat: no-repeat;
+    background-position: right top;
+    min-height: 600px;
+    padding-top: 80px;
+    padding-bottom: 100px;
+    margin-bottom: -50px;
+}
+
+.participateContainer
+{
+    background-image: url("../img/participate-background.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right top;
+    min-height: 650px;
+    padding-top: 40px;
+    padding-bottom: 100px;
+}
+
+.detailsContainer
+{
+    background-image: url("../img/details-background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right top;
+    min-height: 650px;
+    padding: 10px;
+}
+
+.createdContainer
+{
+    background-image: url("../img/login-background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right top;
+    min-height: 650px;
+    padding: 10px;
+}
+
+.searchContainer
+{
+    background-image: url("../img/search-background.jpg");
+    background-repeat: no-repeat;
+    background-position: right top;
+    min-height: 600px;
+    padding-top: 80px;
+    padding-bottom: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-attachment: fixed;
+}
+
+.searchForm
+{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.textSearch
+{
+    background-color: #B9BCC3;
+    float: left;
+    width: 85%;
+    margin-right: 20px;
+    height: 25px;
+    border: none;
+    border-bottom: 1px solid white;
+}
+
+.textSearch::placeholder
+{
+    color: black;
+}
+
+.searchForm .eventButton
+{
+    /*background-color: green;*/
+    width: 10%;
 }
 
 a
@@ -34,13 +151,14 @@ a
 
 .logo
 {
-    display: inline-block;
+    margin-right: 150px;
+    float: left;
     border-bottom: none;
 }
 
 .logo h1
 {
-    color: black;
+    color: white;
     padding-left: 15px;
     text-transform: uppercase;
     margin-bottom: 0px;
@@ -48,7 +166,7 @@ a
 
 .logo h1
 {
-    font-size: 55px;
+    font-size: 40px;
     font-weight: 700;
     letter-spacing: 5px;
 }
@@ -58,10 +176,11 @@ a
     font-size: 25px;
 }
 
+
 .navi
 {
+    float: left;
     padding: 10px;
-    background-color: white;
     text-align: center;
     margin-top: 25px;
     border-bottom: 1px solid black;
@@ -74,15 +193,21 @@ ul
     margin: 0px;
     list-style-type: none;
     font-size: 23px;
-    height: 35px;
-    line-height: 200%;
+    /*height: 35px;*/
+    line-height: 150%;
     display: inline-block;
     height: 47px;
 }
 
 ul a
 {
-    color: black;
+    color: white;
+    text-decoration: none;
+}
+
+ul a:hover
+{
+    color: darkred;
     text-decoration: none;
 }
 
@@ -92,10 +217,10 @@ ul > li
     height: 50px;
 }
 
-ul > li:hover
-{
-    background-color: darkgrey;
-}
+/*ul > li:hover*/
+/*{*/
+    /*background-color: darkgrey;*/
+/*}*/
 
 ul > li > ul
 {
@@ -114,7 +239,9 @@ ul > li:hover > ul
 
 ul > li > ul > li
 {
-    background-color: lightgrey;
+    /*background-color: lightgrey;*/
+    background-color: black;
+    border-bottom: 1px solid lightgrey;
     height: auto;
     width: auto;
     z-index: 100;
@@ -122,13 +249,14 @@ ul > li > ul > li
 
 ul > li > ul > li:hover
 {
-    background-color: darkgrey;
+    background-color: lightgrey;
 }
 
 
 ul > li > ul > li:hover > a
 {
-    color: black;
+    color: darkred;
+    /*color: black;*/
 }
 
 .box
@@ -139,11 +267,13 @@ ul > li > ul > li:hover > a
 
 .aboutapp
 {
-    width: 70%;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    width: 50%;
     min-height: 360px;
     padding-left: 15px;
     padding-right: 10px;
-    text-align: left;
 }
 
 .logoPic
@@ -156,7 +286,8 @@ ul > li > ul > li:hover > a
 
 .login
 {
-    margin: 20px auto;
+    margin-right: auto;
+    margin-left: auto;
     width: 300px;
     padding: 30px 25px;
     background: white;
@@ -217,13 +348,19 @@ h1.login-title
 
 .login-register
 {
+    color: dodgerblue;
     text-align:center;
     margin-bottom:0px;
 }
 
+.login-register:visited
+{
+    color: dodgerblue;
+}
+
 .login-register a
 {
-    color:#666;
+    /*color:#666;*/
     text-decoration:none;
     font-size:13px;
 }
@@ -234,18 +371,26 @@ h1.login-title
     height: auto;
     margin-bottom: 5px;
     box-sizing: border-box;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
-.eventDetails:nth-child(odd)
+.eventDetails:first-child
 {
-    background-color: #ebedf4;
+    margin-top: 40px;
 }
+
 
 .eventDetails h2
 {
     margin: 5px;
     margin-top: 15px;
     letter-spacing: 2px;
+}
+
+.eventDetails h3
+{
+    margin: 5px;
 }
 
 .eventName
@@ -297,9 +442,8 @@ h1.login-title
 {
     font-family: 'Open Sans Condensed', arial, sans;
     width: 500px;
-    padding: 30px;
     background: #FFFFFF;
-    margin: 50px auto;
+    margin: auto;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
     -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
@@ -317,6 +461,7 @@ h1.login-title
 #addEventForm textarea,
 #addEventForm select
 {
+    color: black;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -336,6 +481,11 @@ h1.login-title
 {
     resize:none;
     overflow: hidden;
+}
+
+.addCommentForm label
+{
+    margin-left: 5px;
 }
 
 .eventButton
@@ -402,8 +552,10 @@ h1.login-title
     background-color: rgba(0,0,0,0.4);
 }
 
+
 .activityPopupContent
 {
+    color: black;
     background-color: white;
     display: inline-block;
     position: fixed;
@@ -447,7 +599,8 @@ h1.login-title
     background-color: red;
 }
 
-.animate
+
+#animate
 {
     animation: zoom 0.6s
 }
@@ -564,10 +717,18 @@ h1.login-title
     height: 25px;
     width: 90%;
     border: none;
+    margin-right: 10px;
+    height: 30px;
     border-bottom: #ADADAD 1px solid;
     resize: none;
     box-sizing: border-box;
+    background-color: black;
+    color: white;
+}
 
+.addCommentText::placeholder
+{
+    color: white;
 }
 
 .commentContent
@@ -584,7 +745,7 @@ h1.login-title
 .addCommentForm .eventButton
 {
     margin: 0;
-    width: 10%;
+    width: 7%;
     box-sizing: border-box;
 }
 
@@ -593,12 +754,38 @@ h1.login-title
     height: 10px;
 }
 
-
 footer
 {
+    background-color: black;
+    color: white;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
     padding: 40px;
 }
-#mapid { height: 200px; width:30%;}
+
+#mapid
+{
+    height: 400px;
+    width: 800px;
+    /*visibility: hidden;*/
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-top: -200px;
+    margin-left: -400px;
+}
+
+#mapContainer
+{
+    visibility: hidden;
+    /*display:none;*/
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}

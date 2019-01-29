@@ -16,7 +16,7 @@ public class MainController
     @GetMapping("/index")
     public String indexPath()
     {
-        return "redirect:/index";
+        return "redirect:/";
     }
 }
 

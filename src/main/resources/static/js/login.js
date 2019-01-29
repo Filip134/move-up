@@ -10,6 +10,7 @@ login.onkeyup = function()
 }
 
 
+
 password.onkeyup = function()
 {
     var wrongCredentials = document.getElementById("wrongCredentials");

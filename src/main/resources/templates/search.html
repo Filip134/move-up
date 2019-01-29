@@ -9,7 +9,14 @@
 
 <main>
 
-    <div th:each="event: ${allEvents}" class="eventDetails">
+    <div class="searchContainer">
+    <form action="/search" class="searchForm" method="post">
+        <input type="text" class="textSearch" pattern=".{3,}" autocomplete="off" placeholder="Wyszukaj wydarzenia po nazwie..." name="query"/>
+        <input class="eventButton" type="submit" value="Szukaj"/>
+        <div class="clr"></div>
+    </form>
+
+    <div th:each="event: ${events}" class="eventDetails">
         <h3 class="eventName" th:text="${event.getName()}"></h3>
         <div class="eventInfo">
             <p class="eventPoint"><label>Miejsce: </label><span th:text="${event.getPlaceName()}"></span></p>
@@ -24,8 +31,7 @@
         </form>
         <div class="clr"></div>
     </div>
-
-
+    </div>
 </main>
 
 <footer th:replace="template :: footer"></footer>

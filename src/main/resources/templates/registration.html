@@ -7,6 +7,8 @@
 
     <header th:replace="template :: header"></header>
 
+    <div class="registrationContainer">
+
     <form class="login" th:object="${userDto}" method="post" enctype="utf8" onsubmit="return validatePassword()">
         <h1 class="login-title">Rejestracja</h1>
         <input th:field="*{login}" type="text" id="login" autocomplete="off" class="login-input" placeholder="login" th:required="required" autofocus=""/>
@@ -31,6 +33,7 @@
         <p class="login-register"><a th:href="@{/login}">Masz konto?<br/>Zaloguj się</a></p>
 
     </form>
+    </div>
 
     <footer th:replace="template :: footer"></footer>
 
